@@ -1,0 +1,5 @@
+const STRUCTURE_NAME = () => {
+  return <div></div>
+}
+
+export default STRUCTURE_NAME

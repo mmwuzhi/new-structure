@@ -1,0 +1,9 @@
+import React from 'react'
+
+interface Props {}
+
+const STRUCTURE_NAME: React.FC<Props> = () => {
+  return <></>
+}
+
+export default STRUCTURE_NAME
