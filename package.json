@@ -1,6 +1,6 @@
 {
   "name": "new-structure",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI for creating new react file structure",
   "homepage": "https://github.com/mmwuzhi/new-structure",
   "repository": {
@@ -11,6 +11,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "cli",
+    "react",
+    "component",
+    "hook"
+  ],
   "bin": {
     "new-structure": "./dist/index.js"
   },
