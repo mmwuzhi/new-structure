@@ -1,5 +1,6 @@
+#!/usr/bin/env node
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import path, { join, resolve } from 'path'
+import { join, resolve } from 'path'
 import { program } from 'commander'
 import { type Config } from './types'
 import { COMPONENT_DIR, DEFAULT_CONFIGS, HOOK_DIR } from './constants'
@@ -47,11 +48,14 @@ const newStructure = async () => {
 export * from './${name}'
 export { default } from './${name}';
 `
+const language = lang === 'js' ? 'javascript' : 'typescript'
+const type = structureType === 'hook' ? 'hook' : 'component'
 
   console.info(`
 structure name: ${name}
-dir: ${componentDir},
-lang: ${lang}
+structure type: ${type}
+dir: ${componentDir}
+lang: ${language}
   `)
 
   if (!name) {
@@ -59,7 +63,7 @@ lang: ${lang}
     process.exit(0)
   }
 
-  const fullPathToParentDir = path.resolve(dir)
+  const fullPathToParentDir = resolve(dir)
 
   if (!existsSync(fullPathToParentDir)) {
     mkdirSync(dir)
