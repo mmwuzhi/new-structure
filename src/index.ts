@@ -1,25 +1,35 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { dirname, join, resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { join, resolve } from 'path'
 import { program } from 'commander'
-import { type Config } from './types/index.js'
-import { COMPONENT_DIR, DEFAULT_CONFIGS, HOOK_DIR } from './constants.js'
+import { DEFAULT_CONFIGS } from './constants.js'
+import { getConfig, getDirname, require } from './utils.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+export interface Config {
+  lang: 'ts' | 'js'
+  type: 'comp' | 'hook'
+  componentDir: string
+  hookDir: string
+}
 
 const newStructure = async () => {
+  const dirname = getDirname()
+  const packageFile = require('../package.json')
+  const { version, name: moduleName } = packageFile
+  const config = getConfig<Config>(DEFAULT_CONFIGS, moduleName)
+
   program
+    .version(version, '-v, --version', 'output the current version')
     .arguments('<name>')
     .option(
       '-l, --lang <language>',
       'Which language to use (default: "ts")',
-      DEFAULT_CONFIGS.lang
+      config.lang,
     )
     .option(
       '-t, --type <structureType>',
       'structure type (default: comp(component))',
-      DEFAULT_CONFIGS.type
+      config.type,
     )
     .parse(process.argv)
 
@@ -28,20 +38,13 @@ const newStructure = async () => {
   const options = program.opts<Config>()
   const lang = options.lang
   const structureType = options.type
-  const dir = (() => {
-    switch (structureType) {
-      case 'comp':
-        return COMPONENT_DIR
-      case 'hook':
-        return HOOK_DIR
-    }
-  })()!
 
+  const dir = structureType === 'hook' ? config.hookDir : config.componentDir
   const indexExtension = lang === 'js' ? 'js' : 'ts'
   const fileExtension =
-    structureType === 'comp' ? (lang === 'js' ? 'jsx' : 'tsx') : indexExtension
+    structureType === 'hook' ? indexExtension : lang === 'js' ? 'jsx' : 'tsx'
 
-  const templatePath = join(__dirname, `../templates/${structureType}/${lang}`)
+  const templatePath = join(dirname, `../templates/${structureType}/${lang}`)
 
   const componentDir = `${dir}/${name}`
   const filePath = `${componentDir}/${name}.${fileExtension}`
@@ -51,8 +54,8 @@ const newStructure = async () => {
 export * from './${name}'
 export { default } from './${name}';
 `
-const language = lang === 'js' ? 'javascript' : 'typescript'
-const type = structureType === 'hook' ? 'hook' : 'component'
+  const language = lang === 'js' ? 'javascript' : 'typescript'
+  const type = structureType === 'hook' ? 'hook' : 'component'
 
   console.info(`
 structure name: ${name}

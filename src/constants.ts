@@ -1,8 +1,8 @@
+import { type Config } from "./index.js";
 
-export const DEFAULT_CONFIGS = {
+export const DEFAULT_CONFIGS: Config = {
   lang: 'ts',
   type: 'comp',
+  componentDir: 'src/components',
+  hookDir: 'src/hooks',
 }
-
-export const COMPONENT_DIR = 'src/components'
-export const HOOK_DIR = 'src/hooks'

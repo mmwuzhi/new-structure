@@ -5,8 +5,9 @@
     "declaration": true,
     "module": "NodeNext",
     "moduleResolution": "nodenext",
+    "resolveJsonModule": false,
     "esModuleInterop": true,
-    "incremental": true,
+    "rootDir": "./src",
     "outDir": "./dist"
   },
   "include": ["src/**/*"]
