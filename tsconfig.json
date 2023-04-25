@@ -4,6 +4,7 @@
     "strict": true,
     "declaration": true,
     "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "incremental": true,
     "outDir": "./dist"

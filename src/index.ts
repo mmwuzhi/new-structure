@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { join, resolve } from 'path'
+import { dirname, join, resolve } from 'path'
+import { fileURLToPath } from 'url'
 import { program } from 'commander'
-import { type Config } from './types'
-import { COMPONENT_DIR, DEFAULT_CONFIGS, HOOK_DIR } from './constants'
+import { type Config } from './types/index.js'
+import { COMPONENT_DIR, DEFAULT_CONFIGS, HOOK_DIR } from './constants.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const newStructure = async () => {
   program

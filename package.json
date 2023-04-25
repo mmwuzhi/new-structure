@@ -17,6 +17,7 @@
     "component",
     "hook"
   ],
+  "type": "module",
   "bin": {
     "new-structure": "./dist/index.js"
   },
