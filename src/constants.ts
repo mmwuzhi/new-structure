@@ -1,4 +1,4 @@
-import { type Config } from "./index.js";
+import { Config } from "./types/index.js";
 
 export const DEFAULT_CONFIGS: Config = {
   lang: 'ts',
