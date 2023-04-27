@@ -1,6 +1,6 @@
 {
   "name": "new-structure",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CLI for creating new react file structure",
   "homepage": "https://github.com/mmwuzhi/new-structure",
   "repository": {
@@ -10,7 +10,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "pnpm tsc && pnpm publish"
+    "prepublish": "pnpm tsc"
   },
   "keywords": [
     "cli",
